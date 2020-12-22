@@ -1,0 +1,44 @@
+\documentclass{standalone}
+
+\usepackage{tkz-euclide}
+\usepackage{tikz-3dplot}
+\usepackage{tikz-layers}
+
+
+\begin{document}
+	\tdplotsetmaincoords{70}{0}
+	
+	\begin{tikzpicture}[tdplot_main_coords, scale=.5]
+		\def\aB{5} 		%raio
+		\def\Base{100}	%número de lados da base do polígono da copa
+		\def\Niveis{5}	%número de partes que compõem a copa
+		
+		\foreach \i in {\Niveis,...,1}{
+		\begin{scope}[canvas is xy plane at z=-3*\i]	
+			\tkzDefPoints{0/0/A,{\aB+\i}/0/B}
+			\tkzDefRegPolygon[sides=\Base](A,B)
+			\tkzDrawPolygon[olive](P1,P...,P\Base)
+			\tkzDefMidPoint(P1,P3)\tkzGetPoint{M}
+			\tkzGetVectxy(P1,M){V}
+		\end{scope}
+		
+		\coordinate (V) at (0,0,{8-2*\i});
+		
+		\foreach \j in {1,...,\Base}{
+			\tkzDrawSegment[olive](P\j,V)
+			\pgfmathsetmacro{\k}{\j+1}
+			\ifthenelse{\j=\Base}{\tkzDrawPolygon[olive!80!black!40,fill=olive,fill opacity=.25](P1,V,P\j)}{
+			\tkzDrawPolygon[olive!80!black!40,fill=olive,fill opacity=.25](P\j,V,P\k)}
+		}
+	}
+
+	\pgfmathsetmacro{\NiveisT}{-3*\Niveis}
+		\foreach \i in {\NiveisT,...,0}{
+		\begin{scope}[canvas is xy plane at z={\NiveisT+1/5*\i},on background layer]	
+			\tkzDefPoints{0/0/A,{\aB/2}/0/B}
+			\tkzDrawCircle[brown](A,B)
+		\end{scope}
+		}
+	\end{tikzpicture}
+	
+\end{document}
