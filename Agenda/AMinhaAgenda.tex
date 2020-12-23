@@ -1,0 +1,58 @@
+\documentclass{article}
+
+\input{PackagesAgenda}
+
+\input{ConfiguracoesAgenda}
+
+\input{CabecalhoRodapeAgenda}
+
+\input{ComandosMarcacaoAgenda}
+
+
+%%----------------%%
+%%  Dia a marcar  %%
+%%----------------%%
+\def\ano{2020}
+\def\mes{12}
+\def\diaMarcar{22}
+%%----------------%%
+
+
+
+\begin{document}
+	\input{LayoutAgenda}
+	
+	
+	% Temos 3 comandos que funcionam da mesma maneira:
+	% \marcarH[opt. arg1]{arg2}{arg3}{arg4}
+	% \marcarHd[opt. arg1]{arg2}{arg3}{arg4}
+	% \marcarHe[opt. arg1]{arg2}{arg3}{arg4}
+	% significam "marcar Hora" e depois temos "d" de direita ou "e" de esquerda.
+	%
+	% No opt.arg1 colocamos configurações ao formato da marcação
+	% arg2 a hora de começo, se for 8:30, colocamos 8.5 (podemos calcular este valor)
+	% arg3 quantos blocos ocupa, cada bloco tem 30 minutos
+	% arg4 o que escrever no bloco
+	
+	\pgfcalendarifdate{\ano-\mes-\diaMarcar}{Monday}{
+	\marcarH{7}{1}{Up Up!}
+	\marcarHd{8.5}{2}{Aula 1}
+	\marcarHe{9.5}{2}{Aula 2}
+	\marcarH[top color=facebook!20, fill opacity=.95]{11}{3}{Aula 3}
+	\marcarH[pattern=north west lines, opacity=.2]{14.5}{5}{Aula 4}
+	}
+	{}
+	
+	\pgfcalendarifdate{\ano-\mes-\diaMarcar}{Tuesday}{
+		\marcarH{7}{1}{Up Up!}
+		\marcarHd{9}{2}{Aula 1}
+		\marcarHe{10.33}{2}{Aula 2}
+		\marcarH[top color=facebook!20, fill opacity=.95]{14}{3}{Aula 3}
+		\marcarH[pattern=north west lines, opacity=.2]{17}{5}{Aula 4}
+	}
+	{}
+	
+	
+	% É só copiar esta instrução para completar outros dias e depois aparecerá o dia correctamente preenchido.
+
+\end{document}

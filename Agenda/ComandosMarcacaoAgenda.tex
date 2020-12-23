@@ -1,0 +1,35 @@
+
+\newcommand{\marcarH}[4][fill=Tan!20]{
+	\begin{tikzpicture}[overlay, remember picture]
+	\begin{scope}[on glass layer]
+	\pgfmathtruncatemacro\marcai{2*#2-13}
+	\pgfmathtruncatemacro\marcaii{2*#2-13+#3-1}
+	\pgfmathsetmacro\des{(-2*#2+13+\marcai)*6}
+	\draw[draw,rounded corners=1pt,#1] ([xshift=.1mm,yshift=\des mm]diaMatriz-\marcai-1.north west) rectangle ([xshift=-.1mm,yshift=\des mm]diaMatriz-\marcaii-1.south east);
+	\path ([xshift=.1mm,yshift=\des mm]diaMatriz-\marcai-1.north west) to node[midway, text width=6cm,anchor=west]{#4} ([xshift=.1mm,yshift=\des mm]diaMatriz-\marcaii-1.south west);
+	\end{scope}
+	\end{tikzpicture}}
+
+
+\newcommand{\marcarHd}[4][fill=CadetBlue!20]{
+	\begin{tikzpicture}[overlay, remember picture]
+	\begin{scope}[on glass layer]
+	\pgfmathtruncatemacro\marcai{2*#2-13}
+	\pgfmathtruncatemacro\marcaii{2*#2-13+#3-1}
+	\pgfmathsetmacro\des{(-2*#2+13+\marcai)*6}
+	\draw[draw,rounded corners=1pt,#1] ([xshift=0mm,yshift=\des mm]diaMatriz-\marcai-1.north) rectangle ([xshift=-.1mm,yshift=\des mm]diaMatriz-\marcaii-1.south east);
+	\path ([xshift=.1mm,yshift=\des mm]diaMatriz-\marcai-1.north) to node[midway,opacity=1, text width=4cm,anchor=west]{#4} ([xshift=.1mm,yshift=\des mm]diaMatriz-\marcaii-1.south);
+	\end{scope}
+	\end{tikzpicture}}
+
+
+\newcommand{\marcarHe}[4][fill=Chocolate!20]{
+	\begin{tikzpicture}[overlay, remember picture]
+	\begin{scope}[on glass layer]
+	\pgfmathtruncatemacro\marcai{2*#2-13}
+	\pgfmathtruncatemacro\marcaii{2*#2-13+#3-1}
+	\pgfmathsetmacro\des{(-2*#2+13+\marcai)*6}
+	\draw[draw,rounded corners=1pt,#1] ([xshift=.1mm,yshift=\des mm]diaMatriz-\marcai-1.north west) rectangle ([xshift=-0mm,yshift=\des mm]diaMatriz-\marcaii-1.south);
+	\path ([xshift=.1mm,yshift=\des mm]diaMatriz-\marcai-1.north west) to node[midway,opacity=1, text width=4cm,anchor=west]{#4} ([xshift=.1mm,yshift=\des mm]diaMatriz-\marcaii-1.south west);
+	\end{scope}
+	\end{tikzpicture}}

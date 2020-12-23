@@ -1,0 +1,139 @@
+	\begin{tikzpicture}[remember picture,overlay]
+	
+		\node[anchor=south east,yshift=9.5cm, xshift=2cm] (calendario) at (current page.south){
+			\begin{tikzpicture}[remember picture, overlay,scale=1.5]
+				\calendar(MesI)[%
+				dates=\ano-\mes-01 to \ano-\mes-last,
+				day yshift=4mm,
+				day xshift=8mm,
+				week list,
+				%every day/.style={anchor=base},
+				day text={\%d=},rounded corners=0,anchor=base,text height=1ex,text depth=-0.5ex,
+				month label above left,
+				month text={
+					\begin{tikzpicture}[remember picture, overlay]
+					\node[anchor=west,yshift=.4cm] (nomeMes){\%mt, \%y-};
+					\node[anchor=north east,xshift=-12mm, yshift=-5mm,text=facebook] (diaExtenso) at (current page.north east){\diaMarcar{} de \%mt, \ano};
+					\end{tikzpicture}	
+				},
+				]
+				if (Saturday) [black!40]
+				if (Sunday) [red!40]
+				if (equals=\ano-\mes-\diaMarcar)[blue!80]
+				if (equals=\ano-\mes-\diaMarcar){\node [anchor=south east,scale=1.4,draw,circle,xshift=-1.5pt,yshift=-1pt] {};}
+				if (equals=\ano-10-5)[red!40, day text=F]
+				if (equals=\ano-11-1)[red!40, day text=F]
+				if (equals=\ano-12-1)[red!40, day text=F]
+				if (equals=\ano-12-8)[red!40, day text=F]
+				if (equals=\ano-12-25)[red!40, day text=N]
+				if (equals=\ano-1-1)[red!40, day text=F]
+				if (equals=\ano-4-25)[red!40, day text=F]
+				if (equals=\ano-5-1)[red!40, day text=F]
+				if (equals=\ano-5-10)[red!40, day text=F]
+				if (equals=\ano-8-15)[red!40, day text=F];
+			\end{tikzpicture}
+			};
+		
+			
+			\node[anchor=north,yshift=-5cm,] (calendarioSeg) at (calendario.south){
+				\pgfmathtruncatemacro\messeg{\mes+1}
+				\begin{tikzpicture}[remember picture, overlay,scale=1.5]
+				\calendar(MesII)[%
+				dates=\ano-\messeg-01 to \ano-\messeg-last,
+				day yshift=4mm,
+				day xshift=8mm,
+				week list,
+				month label above left,
+				month text={
+					\begin{tikzpicture}[remember picture, overlay]
+					\node[anchor=west,yshift=.4cm] (nomeMesSeg){{\%mt, \%y-}};
+					\end{tikzpicture}	
+				},
+				]
+				if (Saturday) [black!40]
+				if (Sunday) [red!40]
+				if (equals=\ano-\mes-\diaMarcar)[blue!40]
+				if (equals=\ano-10-5)[red!40, day text=F]
+				if (equals=\ano-11-1)[red!40, day text=F]
+				if (equals=\ano-12-1)[red!40, day text=F]
+				if (equals=\ano-12-8)[red!40, day text=F]
+				if (equals=\ano-12-25)[red!40, day text=N]
+				if (equals=\ano-1-1)[red!40, day text=F]
+				if (equals=\ano-4-25)[red!40, day text=F]
+				if (equals=\ano-5-1)[red!40, day text=F]
+				if (equals=\ano-5-10)[red!40, day text=F]
+				if (equals=\ano-8-15)[red!40, day text=F];
+			\end{tikzpicture}
+		};
+		
+		\foreach\i in{nomeMes, nomeMesSeg}{
+			\node[anchor=west] (DiasSemana) at ([yshift=-4mm,xshift=-4mm]\i.west){
+				\begin{tikzpicture}[remember picture, overlay,scale=1.5]
+					\matrix[matrix of nodes,
+					column 6/.style={text=black!40},
+					column 7/.style={text=red!40},
+					nodes={minimum width=12mm, minimum height=1em},
+					ampersand replacement=\&] (Dias){%
+						S \& T \& Q \& Q \& S \& S \& D\\};
+				\end{tikzpicture}
+			};
+		}
+	\end{tikzpicture}
+
+	\begin{tikzpicture}[overlay, remember picture]
+		\node[anchor=north west,xshift=1cm, yshift=-2cm] (ponteado) at (current page.north west){
+			\begin{tikzpicture}
+			\foreach \i in {.5,1,...,10}{
+				\foreach \j in {.5,1,...,27}{
+					\draw (\i,\j) circle (.2pt);
+				}
+			}
+			\end{tikzpicture}
+		};
+	\end{tikzpicture}
+
+	
+	\begin{tikzpicture}[overlay,remember picture]
+	\begin{scope}[on glass layer]
+		\node[anchor=north east,xshift=-1cm, yshift=-1cm] (Dia) at (current page.north east){
+			\begin{tikzpicture}[remember picture, overlay]
+				\matrix[matrix of nodes,
+						nodes in empty cells,
+						nodes={minimum width=8cm, minimum height=6mm,draw, rounded corners=1pt}] (diaMatriz) {
+						 \\
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ 
+						 \\ };
+			\end{tikzpicture}
+		};	
+		\foreach \i in {1,3,...,27}{
+			\pgfmathtruncatemacro\j{(\i+13)/2}:
+			\node[anchor=east, font=\small] (time) at (diaMatriz-\i-1.north west){\j};
+			\node[anchor=east, font=\scriptsize] (time) at (diaMatriz-\i-1.south west){:30};
+		}
+	\end{scope}
+	
+	\end{tikzpicture}
