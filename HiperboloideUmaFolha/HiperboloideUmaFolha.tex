@@ -1,0 +1,51 @@
+\documentclass[border=1cm]{standalone}
+
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usepackage{tikz-3dplot}
+\usepackage{animate}
+\usetikzlibrary{3d}
+
+
+\begin{document}
+	
+	\tdplotsetmaincoords{70}{0}
+	
+	\def\lados{40}
+		
+	\begin{animateinline}[poster=first,controls={play, stop, step},palindrome,scale=1]{20}
+	\multiframe{71}{rang=-175+5}{
+		\begin{tikzpicture}[tdplot_main_coords]
+			\begin{scope}[canvas is xy plane at z=0]
+				\tkzDefPoints{0/0/O, 2/0/A}
+				\tkzDefRegPolygon[sides=\lados](O,A)
+				
+				\begin{scope}[opacity=0]
+					\tkzLabelRegPolygon(O){Q1,Q...,Q\lados}
+				\end{scope}
+				\tkzDrawPolygon[thick](Q1,Q...,Q\lados)
+				
+			\end{scope}
+		
+			\begin{scope}[canvas is xy plane at z=5]
+				\tkzDefPoints{0/0/O, 2/0/B}
+				\tkzDefRegPolygon[sides=\lados](O,B)
+				\begin{scope}[opacity=0]
+					\tkzLabelRegPolygon(O){R1,R...,R\lados}
+				\end{scope}
+			
+				\foreach \i in {1,...,\lados}{
+					\tkzDefPointBy[rotation=center O angle \rang](R\i)
+					\tkzGetPoint{S\i}
+				}
+				
+				\tkzDrawPolygon[thick](S1,S...,S\lados)
+				
+			\end{scope}
+	
+			\foreach \i in {1,...,\lados}{
+				\tkzDrawSegment[thin, opacity=.5](Q\i,S\i)}
+		\end{tikzpicture}
+	}
+	\end{animateinline}
+\end{document}
