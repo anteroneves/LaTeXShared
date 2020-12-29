@@ -4,20 +4,24 @@
 \usepackage{tkz-euclide}
 \usepackage{tikz-3dplot}
 \usepackage{animate}
+\usepackage{xifthen}
 \usetikzlibrary{3d}
+
+
+\definecolor{azul}{RGB}{59,89,152}
 
 
 \begin{document}
 	
 	\tdplotsetmaincoords{70}{0}
 	
-	\def\lados{40}
+	\def\lados{16}
 		
 	\begin{animateinline}[poster=first,controls={play, stop, step},palindrome,scale=1]{20}
 	\multiframe{71}{rang=-175+5}{
 		\begin{tikzpicture}[tdplot_main_coords]
 			\begin{scope}[canvas is xy plane at z=0]
-				\tkzDefPoints{0/0/O, 2/0/A}
+				\tkzDefPoints{0/0/O, 5/0/A}
 				\tkzDefRegPolygon[sides=\lados](O,A)
 				
 				\begin{scope}[opacity=0]
@@ -27,8 +31,8 @@
 				
 			\end{scope}
 		
-			\begin{scope}[canvas is xy plane at z=5]
-				\tkzDefPoints{0/0/O, 2/0/B}
+			\begin{scope}[canvas is xy plane at z=10]
+				\tkzDefPoints{0/0/O, 5/0/B}
 				\tkzDefRegPolygon[sides=\lados](O,B)
 				\begin{scope}[opacity=0]
 					\tkzLabelRegPolygon(O){R1,R...,R\lados}
@@ -44,7 +48,13 @@
 			\end{scope}
 	
 			\foreach \i in {1,...,\lados}{
-				\tkzDrawSegment[thin, opacity=.5](Q\i,S\i)}
+				\tkzDrawSegment[thin, opacity=.5](Q\i,S\i)
+				\pgfmathsetmacro{\j}{\i+1}
+				\ifthenelse{\i<\lados}{
+					\tkzFillPolygon[azul,opacity=.1](S\i,Q\i,Q\j,S\j)
+				}{
+					\tkzFillPolygon[azul,opacity=.1](S\i,Q\i,Q1,S1)}
+			}
 		\end{tikzpicture}
 	}
 	\end{animateinline}
