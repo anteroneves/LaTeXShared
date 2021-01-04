@@ -1,0 +1,121 @@
+% Ilustração do produto escalar
+
+\documentclass{article}
+
+\usepackage{tkz-euclide}
+\usepackage{tkz-fct}
+\usepackage{tikz-layers}
+\usepackage{esvect}
+\usepackage{fouriernc}
+\usepackage{xifthen}
+
+\definecolor{azul}{RGB}{59,89,152}
+\definecolor{verde}{HTML}{7e8464}
+\definecolor{vermelho}{HTML}{90030c}
+
+
+\newcommand{\LetrasPontos}[3]{%
+	\def\pontoO{#1}
+	\def\pontoP{#2}
+	\def\pontoQ{#3}
+}
+\newcommand{\LetrasVect}[2]{%
+	\def\vecu{#1}
+	\def\vecv{#2}
+}
+
+
+\newcommand{\FigProdEsc}[3][scale=1]{%
+	
+	\begin{tikzpicture}[#1]
+		\tkzDefPoint(0,0){\pontoO}
+		\tkzDefPoint#2{\pontoP}
+		\tkzDefPoint#3{\pontoQ}
+		\tkzDrawSegment[thick,->,>=stealth,vermelho,shorten >=1pt](\pontoO,\pontoP)
+		\tkzDrawSegment[thick,->,>=stealth,azul,shorten >=1pt](\pontoO,\pontoQ)
+		
+		\tkzFindAngle(\pontoP,\pontoO,\pontoQ)\tkzGetAngle{angI}
+		\tkzFindAngle(\pontoQ,\pontoO,\pontoP)\tkzGetAngle{angII}
+		
+		\ifthenelse{\equal{\angI}{0}}{
+			\tkzDrawPoints[verde, fill=white](\pontoQ,\pontoP,\pontoO)
+			\tkzLabelSegment[pos=1.1,anchor=center](\pontoP,\pontoO){\(\pontoO\)}
+			\tkzLabelSegment[pos=1,anchor=south](\pontoO,\pontoQ){\(\pontoQ\)}
+			\tkzLabelSegment[pos=1,anchor=north](\pontoO,\pontoP){\(\pontoP\)}
+			\tkzLabelSegment[above,azul](\pontoO,\pontoQ){\(\vec{\vecv}\)}
+			\tkzLabelSegment[below,vermelho](\pontoO,\pontoP){\(\vec{\vecu}\)}
+			}{
+			
+			\ifthenelse{\equal{\angI}{90} \OR \equal{\angII}{90}\OR \equal{\angII}{180}}
+			{
+				\begin{scope}[on behind layer]
+				\ifthenelse{\dimtest{\angI cm}={180 cm}}{
+					\tkzMarkAngle[size=.5,verde,mark=none](\pontoP,\pontoO,\pontoQ)
+				}
+				{
+					\tkzMarkRightAngle[size=.5,verde,fill=verde!10](\pontoP,\pontoO,\pontoQ)
+				}
+				\tkzDrawPoints[verde, fill=white](\pontoQ,\pontoP,\pontoO)
+				\end{scope}
+			
+				\tkzLabelSegment[below,vermelho](\pontoO,\pontoP){\(\vec{\vecu}\)}
+				
+				\ifthenelse{\dimtest{\angI cm}={180 cm}}{
+					\tkzLabelSegment[below,azul](\pontoO,\pontoQ){\(\vec{\vecv}\)}
+					\tkzLabelPoints[below](\pontoO)
+				}
+				{
+					\tkzLabelSegment[left,azul](\pontoO,\pontoQ){\(\vec{\vecv}\)}
+					\tkzLabelSegment[pos=1.1,anchor=center](\pontoP,\pontoO){\(\pontoO\)}
+				}
+				
+				
+				\tkzLabelSegment[pos=1.1,anchor=center](\pontoO,\pontoQ){\(\pontoQ\)}
+				\tkzLabelSegment[pos=1.1,anchor=center](\pontoO,\pontoP){\(\pontoP\)}
+			}
+			{
+				\tkzDefPointBy[projection=onto \pontoO--\pontoP](\pontoQ)\tkzGetPoint{\pontoQ'}
+				\tkzDrawSegment[ultra thick, -> ,>=stealth, azul, opacity=.5](\pontoO,\pontoQ')
+				
+				\begin{scope}[on behind layer]
+					\ifthenelse{\dimtest{\angI cm}<{180 cm}}{
+						\tkzMarkAngle[size=.5, mark=none,color=verde](\pontoP,\pontoO,\pontoQ)
+					}
+					{
+						\tkzMarkAngle[size=.5, mark=none,color=verde](\pontoQ,\pontoO,\pontoP)
+					}
+				\end{scope}
+			
+				\begin{scope}[on background layer]
+					\tkzDrawSegments[thin,dashed,line cap=round](\pontoQ',\pontoQ)
+					\tkzDrawPoints[verde, fill=white](\pontoQ,\pontoP,\pontoQ',\pontoO)
+				\end{scope}
+				
+				\begin{scope}[on glass layer]
+					\tkzDefBarycentricPoint(\pontoO=1,\pontoP=1,\pontoQ=1)\tkzGetPoint{M}
+					\tkzAutoLabelPoints[center=M](\pontoO,\pontoP,\pontoQ,\pontoQ')
+					\tkzLabelSegment[above,vermelho](\pontoO,\pontoP){\(\vec{\vecu}\)}
+					\tkzLabelSegment[above,azul](\pontoO,\pontoQ){\(\vec{\vecv}\)}
+				\end{scope}
+			}
+		}
+	\end{tikzpicture}
+}
+
+\begin{document}
+
+\LetrasPontos{A}{B}{C}
+\LetrasVect{a}{b}
+\FigProdEsc{(3,-1)}{(2,2)}
+
+
+\LetrasPontos{C}{D}{E}
+\FigProdEsc[scale=1.2]{(3,-1)}{(-2,2)}
+
+\FigProdEsc{(2,0)}{(0,-2)}
+
+\LetrasPontos{O}{P}{Q}
+\LetrasVect{v}{u}
+\FigProdEsc[scale=.5]{(1,2)}{(-2,-4)}
+	
+\end{document}
