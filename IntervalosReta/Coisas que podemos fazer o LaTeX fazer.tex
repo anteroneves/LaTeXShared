@@ -1,0 +1,55 @@
+\documentclass{article}
+
+\usepackage{Intervalosreta}
+
+\begin{document}
+	
+	\begin{tikzpicture}
+		\eixo{-2}{5}
+		\intnuminf{2}{a}
+	\end{tikzpicture}
+	
+	\medskip
+	
+	\begin{tikzpicture}
+	\eixo{-2}{7}
+	\intnuminf{3}{f}
+	\intinfnum{5}{a}[1.2]
+	\end{tikzpicture}
+	
+	\bigskip
+	
+	\begin{tikzpicture}
+	\eixo{-2}{7}
+	\intnumnum{-1}{a}{4}{f}
+	\end{tikzpicture}
+	
+	\begin{tikzpicture}
+	\eixo{-2}{7}
+	\intnumnum[pattern=north west lines]{-1}{a}{4}{f}
+	\intnuminf[pattern=north east lines]{0}{f}[.8]
+	\end{tikzpicture}
+	
+	\begin{tikzpicture}
+	\eixo{-2}{7}
+	\intnumnum[pattern=north west lines]{1.4142}[\sqrt{2}]{a}{4}{f}
+	\intnuminf[pattern=north east lines]{0}{f}[.8]
+	\end{tikzpicture}
+	
+	\begin{tikzpicture}
+	\eixo{-3.5}{3.5}
+	\intinfnum{-3}[-1]{a}[.8]
+	\intnumnum{-3}[-1]{a}{-1}[-\frac{1}{3}]{a}[.8]
+	\intnuminf{0}{a}[.8]
+	\intnumnum[fill=youtube!20]{-1.5}[-\frac{1}{2}]{f}{3}[1]{f}[.5]
+	
+	\intinfnum[pattern=north west lines,opacity=.2]{-3}[-1]{a}[.8]
+	\intnumnum[pattern=north west lines,opacity=.2]{-3}[-1]{a}{-1}[-\frac{1}{3}]{a}[.8]
+	\intnuminf[pattern=north west lines,opacity=.2]{0}{a}[.8]
+	\intnumnum[pattern=north east lines,opacity=.2]{-1.5}[-\frac{1}{2}]{f}{3}[1]{f}[.5]
+	%\draw[pattern=north west lines,opacity=.2](-1.5,.5) rectangle (-1,0);
+	%\draw[pattern=north west lines,opacity=.2](0,0) rectangle (3,.5);
+	\eixo{-3.5}{3.5}
+	\end{tikzpicture}
+	
+\end{document}

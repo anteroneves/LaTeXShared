@@ -1,0 +1,1243 @@
+% this is my first package
+%
+% (c) Antero Neves
+%
+%% This program can be redistributed and/or modified under the terms
+%% of the LaTeX Project Public License Distributed from CTAN archives
+%% in directory macros/latex/base/lppl.txt.
+%
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{intervalosreta}
+  [21/07/2020 v0.01 LaTeX package para uso pessoal]
+
+\RequirePackage{xparse}
+\RequirePackage{tkz-fct}
+\RequirePackage{ifthen}
+
+\definecolor{facebook}{RGB}{59,89,152}
+\definecolor{verde}{HTML}{7e8464}
+\definecolor{youtube}{HTML}{90030c}
+
+
+% O comando \eixo entra com dois valores mandatórios, de mínimo e máximo do eixo Ox
+\NewDocumentCommand{\eixo}{m m}{
+	\def\xmin{#1}
+	\def\xmax{#2}
+	\tkzInit[xmin=#1,xmax=#2]
+	\tkzDrawX[noticks]}
+
+
+% O comando \refnuminf marca um intervalo desde um número até ao infinito. Entra com opções de desenho e depois o número em que o intervalo começa e a altura que temos na marcação do intervalo.
+\NewDocumentCommand{\intnuminf}{o m o m o}{
+	\IfNoValueTF{#1}
+	{	
+		\IfNoValueTF{#3}
+		{
+			\IfNoValueTF{#5}
+			{
+				\tkzDefPoint(#2,0){A}
+				\tkzDrawPoint[shape=cross](A)
+				\tkzLabelPoint[below](A){\(#2\)}
+				\fill[facebook!30, path fading=east,opacity=.5] (#2,0) rectangle (\xmax,.5);
+				\draw[->,>=stealth] (#2,0)--(#2,.5)--(\xmax,.5);
+				\ifthenelse
+				{\equal{#4}{a}}
+				{	
+					\draw[fill=white] (#2,.5) circle [radius=1.5pt];
+				}
+				{
+					\ifthenelse
+					{\equal{#4}{f}}
+					{
+						\draw[fill=black] (#2,.5) circle[radius=1.5pt];
+					}
+					{}
+				}
+			}
+			{
+				\tkzDefPoint(#2,0){A}
+				\tkzDrawPoint[shape=cross](A)
+				\tkzLabelPoint[below](A){\(#2\)}
+				\fill[facebook!30, path fading=east,opacity=.5] (#2,0) rectangle (\xmax,#5);
+				\draw[->,>=stealth] (#2,0)--(#2,#5)--(\xmax,#5);
+				\ifthenelse
+				{\equal{#4}{a}}
+				{	
+					\draw[fill=white] (#2,#5) circle [radius=1.5pt];
+				}
+				{
+					\ifthenelse
+					{\equal{#4}{f}}
+					{
+						\draw[fill=black] (#2,#5) circle[radius=1.5pt];
+					}
+					{}
+				}
+			}
+		}
+		{
+			\IfNoValueTF{#5}
+			{
+				\tkzDefPoint(#2,0){A}
+				\tkzDrawPoint[shape=cross](A)
+				\tkzLabelPoint[below](A){\(#3\)}
+				\fill[facebook!30, path fading=east,opacity=.5] (#2,0) rectangle (\xmax,.5);
+				\draw[->,>=stealth] (#2,0)--(#2,.5)--(\xmax,.5);
+				\ifthenelse
+				{\equal{#4}{a}}
+				{	
+					\draw[fill=white] (#2,.5) circle [radius=1.5pt];
+				}
+				{
+					\ifthenelse
+					{\equal{#4}{f}}
+					{
+						\draw[fill=black] (#2,.5) circle[radius=1.5pt];
+					}
+					{}
+				}
+			}
+			{
+				\tkzDefPoint(#2,0){A}
+				\tkzDrawPoint[shape=cross](A)
+				\tkzLabelPoint[below](A){\(#3\)}
+				\fill[facebook!30, path fading=east,opacity=.5] (#2,0) rectangle (\xmax,#5);
+				\draw[->,>=stealth] (#2,0)--(#2,#5)--(\xmax,#5);
+				\ifthenelse
+				{\equal{#4}{a}}
+				{	
+					\draw[fill=white] (#2,#5) circle [radius=1.5pt];
+				}
+				{
+					\ifthenelse
+					{\equal{#4}{f}}
+					{
+						\draw[fill=black] (#2,#5) circle[radius=1.5pt];
+					}
+					{}
+				}
+			}	
+		}
+	}
+	{
+		\IfNoValueTF{#3}
+		{
+			\IfNoValueTF{#5}
+			{
+				\tkzDefPoint(#2,0){A}
+				\tkzDrawPoint[shape=cross](A)
+				\tkzLabelPoint[below](A){\(#2\)}
+				\fill[facebook!30, path fading=east,opacity=.5,#1] (#2,0) rectangle (\xmax,.5);
+				\draw[->,>=stealth] (#2,0)--(#2,.5)--(\xmax,.5);
+				\ifthenelse
+				{\equal{#4}{a}}
+				{	
+					\draw[fill=white] (#2,.5) circle [radius=1.5pt];
+				}
+				{
+					\ifthenelse
+					{\equal{#4}{f}}
+					{
+						\draw[fill=black] (#2,.5) circle[radius=1.5pt];
+					}
+					{}
+				}
+			}
+			{
+				\tkzDefPoint(#2,0){A}
+				\tkzDrawPoint[shape=cross](A)
+				\tkzLabelPoint[below](A){\(#2\)}
+				\fill[facebook!30, path fading=east,opacity=.5,#1] (#2,0) rectangle (\xmax,#5);
+				\draw[->,>=stealth] (#2,0)--(#2,#5)--(\xmax,#5);
+				\ifthenelse
+				{\equal{#4}{a}}
+				{	
+					\draw[fill=white] (#2,#5) circle [radius=1.5pt];
+				}
+				{
+					\ifthenelse
+					{\equal{#4}{f}}
+					{
+						\draw[fill=black] (#2,#5) circle[radius=1.5pt];
+					}
+					{}
+				}
+			}
+		}
+		{
+			\IfNoValueTF{#5}
+			{
+				\tkzDefPoint(#2,0){A}
+				\tkzDrawPoint[shape=cross](A)
+				\tkzLabelPoint[below](A){\(#3\)}
+				\fill[facebook!30, path fading=east,opacity=.5,#1] (#2,0) rectangle (\xmax,.5);
+				\draw[->,>=stealth] (#2,0)--(#2,.5)--(\xmax,.5);
+				\ifthenelse
+				{\equal{#4}{a}}
+				{	
+					\draw[fill=white] (#2,.5) circle [radius=1.5pt];
+				}
+				{
+					\ifthenelse
+					{\equal{#4}{f}}
+					{
+						\draw[fill=black] (#2,.5) circle[radius=1.5pt];
+					}
+					{}
+				}
+			}
+			{
+				\tkzDefPoint(#2,0){A}
+				\tkzDrawPoint[shape=cross](A)
+				\tkzLabelPoint[below](A){\(#3\)}
+				\fill[facebook!30, path fading=east,opacity=.5,#1] (#2,0) rectangle (\xmax,#5);
+				\draw[->,>=stealth] (#2,0)--(#2,#5)--(\xmax,#5);
+				\ifthenelse
+				{\equal{#4}{a}}
+				{	
+					\draw[fill=white] (#2,#5) circle [radius=1.5pt];
+				}
+				{
+					\ifthenelse
+					{\equal{#4}{f}}
+					{
+						\draw[fill=black] (#2,#5) circle[radius=1.5pt];
+					}
+					{}
+				}
+			}	
+		}
+	}
+}
+
+
+\NewDocumentCommand{\intinfnum}{o m o m o}{
+	\IfNoValueTF{#1}
+	{	
+		\IfNoValueTF{#3}
+		{
+			\IfNoValueTF{#5}
+			{
+				\tkzDefPoint(#2,0){A}
+				\tkzDrawPoint[shape=cross](A)
+				\tkzLabelPoint[below](A){\(#2\)}
+				\fill[facebook!30, path fading=west,opacity=.5] (#2,0) rectangle (\xmin,.5);
+				\draw[->,>=stealth] (#2,0)--(#2,.5)--(\xmin,.5);
+				\ifthenelse
+				{\equal{#4}{a}}
+				{	
+					\draw[fill=white] (#2,.5) circle [radius=1.5pt];
+				}
+				{
+					\ifthenelse
+					{\equal{#4}{f}}
+					{
+						\draw[fill=black] (#2,.5) circle[radius=1.5pt];
+					}
+					{}
+				}
+			}
+			{
+				\tkzDefPoint(#2,0){A}
+				\tkzDrawPoint[shape=cross](A)
+				\tkzLabelPoint[below](A){\(#2\)}
+				\fill[facebook!30, path fading=west,opacity=.5] (#2,0) rectangle (\xmin,#5);
+				\draw[->,>=stealth] (#2,0)--(#2,#5)--(\xmin,#5);
+				\ifthenelse
+				{\equal{#4}{a}}
+				{	
+					\draw[fill=white] (#2,#5) circle [radius=1.5pt];
+				}
+				{
+					\ifthenelse
+					{\equal{#4}{f}}
+					{
+						\draw[fill=black] (#2,#5) circle[radius=1.5pt];
+					}
+					{}
+				}
+			}
+		}
+		{
+			\IfNoValueTF{#5}
+			{
+				\tkzDefPoint(#2,0){A}
+				\tkzDrawPoint[shape=cross](A)
+				\tkzLabelPoint[below](A){\(#3\)}
+				\fill[facebook!30, path fading=west,opacity=.5] (#2,0) rectangle (\xmin,.5);
+				\draw[->,>=stealth] (#2,0)--(#2,.5)--(\xmin,.5);
+				\ifthenelse
+				{\equal{#4}{a}}
+				{	
+					\draw[fill=white] (#2,.5) circle [radius=1.5pt];
+				}
+				{
+					\ifthenelse
+					{\equal{#4}{f}}
+					{
+						\draw[fill=black] (#2,.5) circle[radius=1.5pt];
+					}
+					{}
+				}
+			}
+			{
+				\tkzDefPoint(#2,0){A}
+				\tkzDrawPoint[shape=cross](A)
+				\tkzLabelPoint[below](A){\(#3\)}
+				\fill[facebook!30, path fading=west,opacity=.5] (#2,0) rectangle (\xmin,#5);
+				\draw[->,>=stealth] (#2,0)--(#2,#5)--(\xmin,#5);
+				\ifthenelse
+				{\equal{#4}{a}}
+				{	
+					\draw[fill=white] (#2,#5) circle [radius=1.5pt];
+				}
+				{
+					\ifthenelse
+					{\equal{#4}{f}}
+					{
+						\draw[fill=black] (#2,#5) circle[radius=1.5pt];
+					}
+					{}
+				}
+			}	
+		}
+	}
+	{
+		\IfNoValueTF{#3}
+		{
+			\IfNoValueTF{#5}
+			{
+				\tkzDefPoint(#2,0){A}
+				\tkzDrawPoint[shape=cross](A)
+				\tkzLabelPoint[below](A){\(#2\)}
+				\fill[facebook!30, path fading=west,opacity=.5,#1] (#2,0) rectangle (\xmin,.5);
+				\draw[->,>=stealth] (#2,0)--(#2,.5)--(\xmin,.5);
+				\ifthenelse
+				{\equal{#4}{a}}
+				{	
+					\draw[fill=white] (#2,.5) circle [radius=1.5pt];
+				}
+				{
+					\ifthenelse
+					{\equal{#4}{f}}
+					{
+						\draw[fill=black] (#2,.5) circle[radius=1.5pt];
+					}
+					{}
+				}
+			}
+			{
+				\tkzDefPoint(#2,0){A}
+				\tkzDrawPoint[shape=cross](A)
+				\tkzLabelPoint[below](A){\(#2\)}
+				\fill[facebook!30, path fading=west,opacity=.5,#1] (#2,0) rectangle (\xmin,#5);
+				\draw[->,>=stealth] (#2,0)--(#2,#5)--(\xmin,#5);
+				\ifthenelse
+				{\equal{#4}{a}}
+				{	
+					\draw[fill=white] (#2,#5) circle [radius=1.5pt];
+				}
+				{
+					\ifthenelse
+					{\equal{#4}{f}}
+					{
+						\draw[fill=black] (#2,#5) circle[radius=1.5pt];
+					}
+					{}
+				}
+			}
+		}
+		{
+			\IfNoValueTF{#5}
+			{
+				\tkzDefPoint(#2,0){A}
+				\tkzDrawPoint[shape=cross](A)
+				\tkzLabelPoint[below](A){\(#3\)}
+				\fill[facebook!30, path fading=west,opacity=.5,#1] (#2,0) rectangle (\xmin,.5);
+				\draw[->,>=stealth] (#2,0)--(#2,.5)--(\xmin,.5);
+				\ifthenelse
+				{\equal{#4}{a}}
+				{	
+					\draw[fill=white] (#2,.5) circle [radius=1.5pt];
+				}
+				{
+					\ifthenelse
+					{\equal{#4}{f}}
+					{
+						\draw[fill=black] (#2,.5) circle[radius=1.5pt];
+					}
+					{}
+				}
+			}
+			{
+				\tkzDefPoint(#2,0){A}
+				\tkzDrawPoint[shape=cross](A)
+				\tkzLabelPoint[below](A){\(#3\)}
+				\fill[facebook!30, path fading=west,opacity=.5,#1] (#2,0) rectangle (\xmin,#5);
+				\draw[->,>=stealth] (#2,0)--(#2,#5)--(\xmin,#5);
+				\ifthenelse
+				{\equal{#4}{a}}
+				{	
+					\draw[fill=white] (#2,#5) circle [radius=1.5pt];
+				}
+				{
+					\ifthenelse
+					{\equal{#4}{f}}
+					{
+						\draw[fill=black] (#2,#5) circle[radius=1.5pt];
+					}
+					{}
+				}
+			}	
+		}
+	}
+}
+
+
+\NewDocumentCommand{\intnumnum}{o m o m m o m o}{
+	\IfNoValueTF{#1}
+	{	
+		\IfNoValueTF{#3}
+		{
+			\IfNoValueTF{#6}
+			{
+				\IfNoValueTF{#8}
+				{	
+					\tkzDefPoint(#2,0){A}
+					\tkzDrawPoint[shape=cross](A)
+					\tkzLabelPoint[below](A){\(#2\)}
+					\tkzDefPoint(#5,0){B}
+					\tkzDrawPoint[shape=cross](B)
+					\tkzLabelPoint[below](B){\(#5\)}
+					\fill[facebook!30,opacity=.5] (#2,0) rectangle (#5,.5);
+					\draw (#2,0)--(#2,.5)--(#5,.5)-- (#5,0);
+					\ifthenelse
+					{\equal{#4}{a}}
+					{	
+						\draw[fill=white] (#2,.5) circle [radius=1.5pt];
+						
+						\ifthenelse
+						{\equal{#7}{a}}
+						{
+							\draw[fill=white] (#5,.5) circle [radius=1.5pt];
+						}
+						{
+							\ifthenelse
+							{\equal{#7}{f}}
+							{
+								\draw[fill=black] (#5,.5) circle[radius=1.5pt];
+							}
+							{}	
+						}
+					}
+					{
+						\ifthenelse
+						{\equal{#4}{f}}
+						{
+							\draw[fill=black] (#2,.5) circle[radius=1.5pt];
+							\ifthenelse
+							{\equal{#7}{a}}
+							{
+								\draw[fill=white] (#5,.5) circle [radius=1.5pt];
+							}
+							{
+								\ifthenelse
+								{\equal{#7}{f}}
+								{
+									\draw[fill=black] (#5,.5) circle[radius=1.5pt];
+								}
+								{}	
+							}
+						}
+						{}
+					}
+				}
+				{
+					\tkzDefPoint(#2,0){A}
+					\tkzDrawPoint[shape=cross](A)
+					\tkzLabelPoint[below](A){\(#2\)}
+					\tkzDefPoint(#5,0){B}
+					\tkzDrawPoint[shape=cross](B)
+					\tkzLabelPoint[below](B){\(#5\)}
+					\fill[facebook!30,opacity=.5] (#2,0) rectangle (#5,#8);
+					\draw (#2,0)--(#2,#8)--(#5,#8)-- (#5,0);
+					\ifthenelse
+					{\equal{#4}{a}}
+					{	
+						\draw[fill=white] (#2,#8) circle [radius=1.5pt];
+						
+						\ifthenelse
+						{\equal{#7}{a}}
+						{
+							\draw[fill=white] (#5,#8) circle [radius=1.5pt];
+						}
+						{
+							\ifthenelse
+							{\equal{#7}{f}}
+							{
+								\draw[fill=black] (#5,#8) circle[radius=1.5pt];
+							}
+							{}	
+						}
+					}
+					{
+						\ifthenelse
+						{\equal{#4}{f}}
+						{
+							\draw[fill=black] (#2,#8) circle[radius=1.5pt];
+							\ifthenelse
+							{\equal{#7}{a}}
+							{
+								\draw[fill=white] (#5,#8) circle [radius=1.5pt];
+							}
+							{
+								\ifthenelse
+								{\equal{#7}{f}}
+								{
+									\draw[fill=black] (#5,#8) circle[radius=1.5pt];
+								}
+								{}	
+							}
+						}
+						{}
+					}	
+				}
+			}
+			{
+				\IfNoValueTF{#8}
+				{	
+					\tkzDefPoint(#2,0){A}
+					\tkzDrawPoint[shape=cross](A)
+					\tkzLabelPoint[below](A){\(#2\)}
+					\tkzDefPoint(#5,0){B}
+					\tkzDrawPoint[shape=cross](B)
+					\tkzLabelPoint[below](B){\(#6\)}
+					\fill[facebook!30,opacity=.5] (#2,0) rectangle (#5,.5);
+					\draw (#2,0)--(#2,.5)--(#5,.5)-- (#5,0);
+					\ifthenelse
+					{\equal{#4}{a}}
+					{	
+						\draw[fill=white] (#2,.5) circle [radius=1.5pt];
+						
+						\ifthenelse
+						{\equal{#7}{a}}
+						{
+							\draw[fill=white] (#5,.5) circle [radius=1.5pt];
+						}
+						{
+							\ifthenelse
+							{\equal{#7}{f}}
+							{
+								\draw[fill=black] (#5,.5) circle[radius=1.5pt];
+							}
+							{}	
+						}
+					}
+					{
+						\ifthenelse
+						{\equal{#4}{f}}
+						{
+							\draw[fill=black] (#2,.5) circle[radius=1.5pt];
+							\ifthenelse
+							{\equal{#7}{a}}
+							{
+								\draw[fill=white] (#5,.5) circle [radius=1.5pt];
+							}
+							{
+								\ifthenelse
+								{\equal{#7}{f}}
+								{
+									\draw[fill=black] (#5,.5) circle[radius=1.5pt];
+								}
+								{}	
+							}
+						}
+						{}
+					}
+				}
+				{
+					\tkzDefPoint(#2,0){A}
+					\tkzDrawPoint[shape=cross](A)
+					\tkzLabelPoint[below](A){\(#2\)}
+					\tkzDefPoint(#5,0){B}
+					\tkzDrawPoint[shape=cross](B)
+					\tkzLabelPoint[below](B){\(#6\)}
+					\fill[facebook!30,opacity=.5] (#2,0) rectangle (#5,#8);
+					\draw (#2,0)--(#2,#8)--(#5,#8)-- (#5,0);
+					\ifthenelse
+					{\equal{#4}{a}}
+					{	
+						\draw[fill=white] (#2,#8) circle [radius=1.5pt];
+						
+						\ifthenelse
+						{\equal{#7}{a}}
+						{
+							\draw[fill=white] (#5,#8) circle [radius=1.5pt];
+						}
+						{
+							\ifthenelse
+							{\equal{#7}{f}}
+							{
+								\draw[fill=black] (#5,#8) circle[radius=1.5pt];
+							}
+							{}	
+						}
+					}
+					{
+						\ifthenelse
+						{\equal{#4}{f}}
+						{
+							\draw[fill=black] (#2,#8) circle[radius=1.5pt];
+							\ifthenelse
+							{\equal{#7}{a}}
+							{
+								\draw[fill=white] (#5,#8) circle [radius=1.5pt];
+							}
+							{
+								\ifthenelse
+								{\equal{#7}{f}}
+								{
+									\draw[fill=black] (#5,#8) circle[radius=1.5pt];
+								}
+								{}	
+							}
+						}
+						{}
+					}	
+				}
+			}
+		}
+		{
+			\IfNoValueTF{#6}
+			{
+				\IfNoValueTF{#8}
+				{	
+					\tkzDefPoint(#2,0){A}
+					\tkzDrawPoint[shape=cross](A)
+					\tkzLabelPoint[below](A){\(#3\)}
+					\tkzDefPoint(#5,0){B}
+					\tkzDrawPoint[shape=cross](B)
+					\tkzLabelPoint[below](B){\(#5\)}
+					\fill[facebook!30,opacity=.5] (#2,0) rectangle (#5,.5);
+					\draw (#2,0)--(#2,.5)--(#5,.5)-- (#5,0);
+					\ifthenelse
+					{\equal{#4}{a}}
+					{	
+						\draw[fill=white] (#2,.5) circle [radius=1.5pt];
+						
+						\ifthenelse
+						{\equal{#7}{a}}
+						{
+							\draw[fill=white] (#5,.5) circle [radius=1.5pt];
+						}
+						{
+							\ifthenelse
+							{\equal{#7}{f}}
+							{
+								\draw[fill=black] (#5,.5) circle[radius=1.5pt];
+							}
+							{}	
+						}
+					}
+					{
+						\ifthenelse
+						{\equal{#4}{f}}
+						{
+							\draw[fill=black] (#2,.5) circle[radius=1.5pt];
+							\ifthenelse
+							{\equal{#7}{a}}
+							{
+								\draw[fill=white] (#5,.5) circle [radius=1.5pt];
+							}
+							{
+								\ifthenelse
+								{\equal{#7}{f}}
+								{
+									\draw[fill=black] (#5,.5) circle[radius=1.5pt];
+								}
+								{}	
+							}
+						}
+						{}
+					}
+				}
+				{
+					\tkzDefPoint(#2,0){A}
+					\tkzDrawPoint[shape=cross](A)
+					\tkzLabelPoint[below](A){\(#3\)}
+					\tkzDefPoint(#5,0){B}
+					\tkzDrawPoint[shape=cross](B)
+					\tkzLabelPoint[below](B){\(#5\)}
+					\fill[facebook!30,opacity=.5] (#2,0) rectangle (#5,#8);
+					\draw (#2,0)--(#2,#8)--(#5,#8)-- (#5,0);
+					\ifthenelse
+					{\equal{#4}{a}}
+					{	
+						\draw[fill=white] (#2,#8) circle [radius=1.5pt];
+						
+						\ifthenelse
+						{\equal{#7}{a}}
+						{
+							\draw[fill=white] (#5,#8) circle [radius=1.5pt];
+						}
+						{
+							\ifthenelse
+							{\equal{#7}{f}}
+							{
+								\draw[fill=black] (#5,#8) circle[radius=1.5pt];
+							}
+							{}	
+						}
+					}
+					{
+						\ifthenelse
+						{\equal{#4}{f}}
+						{
+							\draw[fill=black] (#2,#8) circle[radius=1.5pt];
+							\ifthenelse
+							{\equal{#7}{a}}
+							{
+								\draw[fill=white] (#5,#8) circle [radius=1.5pt];
+							}
+							{
+								\ifthenelse
+								{\equal{#7}{f}}
+								{
+									\draw[fill=black] (#5,#8) circle[radius=1.5pt];
+								}
+								{}	
+							}
+						}
+						{}
+					}	
+				}
+			}
+			{
+				\IfNoValueTF{#8}
+				{	
+					\tkzDefPoint(#2,0){A}
+					\tkzDrawPoint[shape=cross](A)
+					\tkzLabelPoint[below](A){\(#3\)}
+					\tkzDefPoint(#5,0){B}
+					\tkzDrawPoint[shape=cross](B)
+					\tkzLabelPoint[below](B){\(#6\)}
+					\fill[facebook!30,opacity=.5] (#2,0) rectangle (#5,.5);
+					\draw (#2,0)--(#2,.5)--(#5,.5)-- (#5,0);
+					\ifthenelse
+					{\equal{#4}{a}}
+					{	
+						\draw[fill=white] (#2,.5) circle [radius=1.5pt];
+						
+						\ifthenelse
+						{\equal{#7}{a}}
+						{
+							\draw[fill=white] (#5,.5) circle [radius=1.5pt];
+						}
+						{
+							\ifthenelse
+							{\equal{#7}{f}}
+							{
+								\draw[fill=black] (#5,.5) circle[radius=1.5pt];
+							}
+							{}	
+						}
+					}
+					{
+						\ifthenelse
+						{\equal{#4}{f}}
+						{
+							\draw[fill=black] (#2,.5) circle[radius=1.5pt];
+							\ifthenelse
+							{\equal{#7}{a}}
+							{
+								\draw[fill=white] (#5,.5) circle [radius=1.5pt];
+							}
+							{
+								\ifthenelse
+								{\equal{#7}{f}}
+								{
+									\draw[fill=black] (#5,.5) circle[radius=1.5pt];
+								}
+								{}	
+							}
+						}
+						{}
+					}
+				}
+				{
+					\tkzDefPoint(#2,0){A}
+					\tkzDrawPoint[shape=cross](A)
+					\tkzLabelPoint[below](A){\(#3\)}
+					\tkzDefPoint(#5,0){B}
+					\tkzDrawPoint[shape=cross](B)
+					\tkzLabelPoint[below](B){\(#6\)}
+					\fill[facebook!30,opacity=.5] (#2,0) rectangle (#5,#8);
+					\draw (#2,0)--(#2,#8)--(#5,#8)-- (#5,0);
+					\ifthenelse
+					{\equal{#4}{a}}
+					{	
+						\draw[fill=white] (#2,#8) circle [radius=1.5pt];
+						
+						\ifthenelse
+						{\equal{#7}{a}}
+						{
+							\draw[fill=white] (#5,#8) circle [radius=1.5pt];
+						}
+						{
+							\ifthenelse
+							{\equal{#7}{f}}
+							{
+								\draw[fill=black] (#5,#8) circle[radius=1.5pt];
+							}
+							{}	
+						}
+					}
+					{
+						\ifthenelse
+						{\equal{#4}{f}}
+						{
+							\draw[fill=black] (#2,#8) circle[radius=1.5pt];
+							\ifthenelse
+							{\equal{#7}{a}}
+							{
+								\draw[fill=white] (#5,#8) circle [radius=1.5pt];
+							}
+							{
+								\ifthenelse
+								{\equal{#7}{f}}
+								{
+									\draw[fill=black] (#5,#8) circle[radius=1.5pt];
+								}
+								{}	
+							}
+						}
+						{}
+					}	
+				}
+			}
+		}
+	}
+	{
+		\IfNoValueTF{#3}
+		{
+			\IfNoValueTF{#6}
+			{
+				\IfNoValueTF{#8}
+				{	
+					\tkzDefPoint(#2,0){A}
+					\tkzDrawPoint[shape=cross](A)
+					\tkzLabelPoint[below](A){\(#2\)}
+					\tkzDefPoint(#5,0){B}
+					\tkzDrawPoint[shape=cross](B)
+					\tkzLabelPoint[below](B){\(#5\)}
+					\fill[facebook!30,opacity=.5,#1] (#2,0) rectangle (#5,.5);
+					\draw (#2,0)--(#2,.5)--(#5,.5)-- (#5,0);
+					\ifthenelse
+					{\equal{#4}{a}}
+					{	
+						\draw[fill=white] (#2,.5) circle [radius=1.5pt];
+						
+						\ifthenelse
+						{\equal{#7}{a}}
+						{
+							\draw[fill=white] (#5,.5) circle [radius=1.5pt];
+						}
+						{
+							\ifthenelse
+							{\equal{#7}{f}}
+							{
+								\draw[fill=black] (#5,.5) circle[radius=1.5pt];
+							}
+							{}	
+						}
+					}
+					{
+						\ifthenelse
+						{\equal{#4}{f}}
+						{
+							\draw[fill=black] (#2,.5) circle[radius=1.5pt];
+							\ifthenelse
+							{\equal{#7}{a}}
+							{
+								\draw[fill=white] (#5,.5) circle [radius=1.5pt];
+							}
+							{
+								\ifthenelse
+								{\equal{#7}{f}}
+								{
+									\draw[fill=black] (#5,.5) circle[radius=1.5pt];
+								}
+								{}	
+							}
+						}
+						{}
+					}
+				}
+				{
+					\tkzDefPoint(#2,0){A}
+					\tkzDrawPoint[shape=cross](A)
+					\tkzLabelPoint[below](A){\(#2\)}
+					\tkzDefPoint(#5,0){B}
+					\tkzDrawPoint[shape=cross](B)
+					\tkzLabelPoint[below](B){\(#5\)}
+					\fill[facebook!30,opacity=.5,#1] (#2,0) rectangle (#5,#8);
+					\draw (#2,0)--(#2,#8)--(#5,#8)-- (#5,0);
+					\ifthenelse
+					{\equal{#4}{a}}
+					{	
+						\draw[fill=white] (#2,#8) circle [radius=1.5pt];
+						
+						\ifthenelse
+						{\equal{#7}{a}}
+						{
+							\draw[fill=white] (#5,#8) circle [radius=1.5pt];
+						}
+						{
+							\ifthenelse
+							{\equal{#7}{f}}
+							{
+								\draw[fill=black] (#5,#8) circle[radius=1.5pt];
+							}
+							{}	
+						}
+					}
+					{
+						\ifthenelse
+						{\equal{#4}{f}}
+						{
+							\draw[fill=black] (#2,#8) circle[radius=1.5pt];
+							\ifthenelse
+							{\equal{#7}{a}}
+							{
+								\draw[fill=white] (#5,#8) circle [radius=1.5pt];
+							}
+							{
+								\ifthenelse
+								{\equal{#7}{f}}
+								{
+									\draw[fill=black] (#5,#8) circle[radius=1.5pt];
+								}
+								{}	
+							}
+						}
+						{}
+					}	
+				}
+			}
+			{
+				\IfNoValueTF{#8}
+				{	
+					\tkzDefPoint(#2,0){A}
+					\tkzDrawPoint[shape=cross](A)
+					\tkzLabelPoint[below](A){\(#2\)}
+					\tkzDefPoint(#5,0){B}
+					\tkzDrawPoint[shape=cross](B)
+					\tkzLabelPoint[below](B){\(#6\)}
+					\fill[facebook!30,opacity=.5,#1] (#2,0) rectangle (#5,.5);
+					\draw (#2,0)--(#2,.5)--(#5,.5)-- (#5,0);
+					\ifthenelse
+					{\equal{#4}{a}}
+					{	
+						\draw[fill=white] (#2,.5) circle [radius=1.5pt];
+						
+						\ifthenelse
+						{\equal{#7}{a}}
+						{
+							\draw[fill=white] (#5,.5) circle [radius=1.5pt];
+						}
+						{
+							\ifthenelse
+							{\equal{#7}{f}}
+							{
+								\draw[fill=black] (#5,.5) circle[radius=1.5pt];
+							}
+							{}	
+						}
+					}
+					{
+						\ifthenelse
+						{\equal{#4}{f}}
+						{
+							\draw[fill=black] (#2,.5) circle[radius=1.5pt];
+							\ifthenelse
+							{\equal{#7}{a}}
+							{
+								\draw[fill=white] (#5,.5) circle [radius=1.5pt];
+							}
+							{
+								\ifthenelse
+								{\equal{#7}{f}}
+								{
+									\draw[fill=black] (#5,.5) circle[radius=1.5pt];
+								}
+								{}	
+							}
+						}
+						{}
+					}
+				}
+				{
+					\tkzDefPoint(#2,0){A}
+					\tkzDrawPoint[shape=cross](A)
+					\tkzLabelPoint[below](A){\(#2\)}
+					\tkzDefPoint(#5,0){B}
+					\tkzDrawPoint[shape=cross](B)
+					\tkzLabelPoint[below](B){\(#6\)}
+					\fill[facebook!30,opacity=.5,#1] (#2,0) rectangle (#5,#8);
+					\draw (#2,0)--(#2,#8)--(#5,#8)-- (#5,0);
+					\ifthenelse
+					{\equal{#4}{a}}
+					{	
+						\draw[fill=white] (#2,#8) circle [radius=1.5pt];
+						
+						\ifthenelse
+						{\equal{#7}{a}}
+						{
+							\draw[fill=white] (#5,#8) circle [radius=1.5pt];
+						}
+						{
+							\ifthenelse
+							{\equal{#7}{f}}
+							{
+								\draw[fill=black] (#5,#8) circle[radius=1.5pt];
+							}
+							{}	
+						}
+					}
+					{
+						\ifthenelse
+						{\equal{#4}{f}}
+						{
+							\draw[fill=black] (#2,#8) circle[radius=1.5pt];
+							\ifthenelse
+							{\equal{#7}{a}}
+							{
+								\draw[fill=white] (#5,#8) circle [radius=1.5pt];
+							}
+							{
+								\ifthenelse
+								{\equal{#7}{f}}
+								{
+									\draw[fill=black] (#5,#8) circle[radius=1.5pt];
+								}
+								{}	
+							}
+						}
+						{}
+					}	
+				}
+			}
+		}
+		{
+			\IfNoValueTF{#6}
+			{
+				\IfNoValueTF{#8}
+				{	
+					\tkzDefPoint(#2,0){A}
+					\tkzDrawPoint[shape=cross](A)
+					\tkzLabelPoint[below](A){\(#3\)}
+					\tkzDefPoint(#5,0){B}
+					\tkzDrawPoint[shape=cross](B)
+					\tkzLabelPoint[below](B){\(#5\)}
+					\fill[facebook!30,opacity=.5,#1] (#2,0) rectangle (#5,.5);
+					\draw (#2,0)--(#2,.5)--(#5,.5)-- (#5,0);
+					\ifthenelse
+					{\equal{#4}{a}}
+					{	
+						\draw[fill=white] (#2,.5) circle [radius=1.5pt];
+						
+						\ifthenelse
+						{\equal{#7}{a}}
+						{
+							\draw[fill=white] (#5,.5) circle [radius=1.5pt];
+						}
+						{
+							\ifthenelse
+							{\equal{#7}{f}}
+							{
+								\draw[fill=black] (#5,.5) circle[radius=1.5pt];
+							}
+							{}	
+						}
+					}
+					{
+						\ifthenelse
+						{\equal{#4}{f}}
+						{
+							\draw[fill=black] (#2,.5) circle[radius=1.5pt];
+							\ifthenelse
+							{\equal{#7}{a}}
+							{
+								\draw[fill=white] (#5,.5) circle [radius=1.5pt];
+							}
+							{
+								\ifthenelse
+								{\equal{#7}{f}}
+								{
+									\draw[fill=black] (#5,.5) circle[radius=1.5pt];
+								}
+								{}	
+							}
+						}
+						{}
+					}
+				}
+				{
+					\tkzDefPoint(#2,0){A}
+					\tkzDrawPoint[shape=cross](A)
+					\tkzLabelPoint[below](A){\(#3\)}
+					\tkzDefPoint(#5,0){B}
+					\tkzDrawPoint[shape=cross](B)
+					\tkzLabelPoint[below](B){\(#5\)}
+					\fill[facebook!30,opacity=.5,#1] (#2,0) rectangle (#5,#8);
+					\draw (#2,0)--(#2,#8)--(#5,#8)-- (#5,0);
+					\ifthenelse
+					{\equal{#4}{a}}
+					{	
+						\draw[fill=white] (#2,#8) circle [radius=1.5pt];
+						
+						\ifthenelse
+						{\equal{#7}{a}}
+						{
+							\draw[fill=white] (#5,#8) circle [radius=1.5pt];
+						}
+						{
+							\ifthenelse
+							{\equal{#7}{f}}
+							{
+								\draw[fill=black] (#5,#8) circle[radius=1.5pt];
+							}
+							{}	
+						}
+					}
+					{
+						\ifthenelse
+						{\equal{#4}{f}}
+						{
+							\draw[fill=black] (#2,#8) circle[radius=1.5pt];
+							\ifthenelse
+							{\equal{#7}{a}}
+							{
+								\draw[fill=white] (#5,#8) circle [radius=1.5pt];
+							}
+							{
+								\ifthenelse
+								{\equal{#7}{f}}
+								{
+									\draw[fill=black] (#5,#8) circle[radius=1.5pt];
+								}
+								{}	
+							}
+						}
+						{}
+					}	
+				}
+			}
+			{
+				\IfNoValueTF{#8}
+				{	
+					\tkzDefPoint(#2,0){A}
+					\tkzDrawPoint[shape=cross](A)
+					\tkzLabelPoint[below](A){\(#3\)}
+					\tkzDefPoint(#5,0){B}
+					\tkzDrawPoint[shape=cross](B)
+					\tkzLabelPoint[below](B){\(#6\)}
+					\fill[facebook!30,opacity=.5,#1] (#2,0) rectangle (#5,.5);
+					\draw (#2,0)--(#2,.5)--(#5,.5)-- (#5,0);
+					\ifthenelse
+					{\equal{#4}{a}}
+					{	
+						\draw[fill=white] (#2,.5) circle [radius=1.5pt];
+						
+						\ifthenelse
+						{\equal{#7}{a}}
+						{
+							\draw[fill=white] (#5,.5) circle [radius=1.5pt];
+						}
+						{
+							\ifthenelse
+							{\equal{#7}{f}}
+							{
+								\draw[fill=black] (#5,.5) circle[radius=1.5pt];
+							}
+							{}	
+						}
+					}
+					{
+						\ifthenelse
+						{\equal{#4}{f}}
+						{
+							\draw[fill=black] (#2,.5) circle[radius=1.5pt];
+							\ifthenelse
+							{\equal{#7}{a}}
+							{
+								\draw[fill=white] (#5,.5) circle [radius=1.5pt];
+							}
+							{
+								\ifthenelse
+								{\equal{#7}{f}}
+								{
+									\draw[fill=black] (#5,.5) circle[radius=1.5pt];
+								}
+								{}	
+							}
+						}
+						{}
+					}
+				}
+				{
+					\tkzDefPoint(#2,0){A}
+					\tkzDrawPoint[shape=cross](A)
+					\tkzLabelPoint[below](A){\(#3\)}
+					\tkzDefPoint(#5,0){B}
+					\tkzDrawPoint[shape=cross](B)
+					\tkzLabelPoint[below](B){\(#6\)}
+					\fill[facebook!30,opacity=.5,#1] (#2,0) rectangle (#5,#8);
+					\draw (#2,0)--(#2,#8)--(#5,#8)-- (#5,0);
+					\ifthenelse
+					{\equal{#4}{a}}
+					{	
+						\draw[fill=white] (#2,#8) circle [radius=1.5pt];
+						
+						\ifthenelse
+						{\equal{#7}{a}}
+						{
+							\draw[fill=white] (#5,#8) circle [radius=1.5pt];
+						}
+						{
+							\ifthenelse
+							{\equal{#7}{f}}
+							{
+								\draw[fill=black] (#5,#8) circle[radius=1.5pt];
+							}
+							{}	
+						}
+					}
+					{
+						\ifthenelse
+						{\equal{#4}{f}}
+						{
+							\draw[fill=black] (#2,#8) circle[radius=1.5pt];
+							\ifthenelse
+							{\equal{#7}{a}}
+							{
+								\draw[fill=white] (#5,#8) circle [radius=1.5pt];
+							}
+							{
+								\ifthenelse
+								{\equal{#7}{f}}
+								{
+									\draw[fill=black] (#5,#8) circle[radius=1.5pt];
+								}
+								{}	
+							}
+						}
+						{}
+					}	
+				}
+			}
+		}
+	}
+}
+
+
