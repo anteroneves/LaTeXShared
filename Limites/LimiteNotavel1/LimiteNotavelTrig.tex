@@ -1,0 +1,103 @@
+\documentclass[12pt]{article}
+
+\usepackage{tkz-euclide}
+\usepackage{tkz-fct}
+\usepackage{tikz-layers}
+\usepackage{amsmath}
+\usepackage{witharrows}
+\usepackage{fouriernc}
+\usepackage[output-decimal-marker={,}]{siunitx}
+\usepackage{animate}
+\usepackage{pythontex}
+\definecolor{Vermelho}{HTML}{90030c}
+\definecolor{AzulEscuro}{HTML}{37538C}
+\definecolor{AzulCinza}{HTML}{8A9CBF}
+\definecolor{Verde}{HTML}{038C7F}
+\definecolor{Branco}{HTML}{D9D9D9}
+
+\begin{document}
+	\section*{Limite Notável: \(\lim\limits_{x\to 0}\dfrac{\sin(x)}{x} = 1\)}
+	
+	\def\angulo{35}
+	\begin{animateinline}[poster=0, controls={play,step,stop}]{10}
+		\multiframe{51}{ri=50+(-1)}
+		{%
+		\begin{tikzpicture}[remember picture,scale=2.5]
+			\path[use as bounding box] (-2,-2.5) rectangle (3.5,4);
+			
+			\tkzDefPoints{-1/0/O1, 1.5/2/O2}
+			
+				\begin{scope}[shift=(O1),scale=2]
+					\tkzInit[xmin=-.2,xmax=1,ymin=-1.2, ymax=1]
+					\tkzDrawXY[noticks,thick]
+					\tkzDefPoints{0/0/O, 1/0/A,0/1/Y}
+					\tkzDrawArc[R](O,1cm)(-120,120)
+					\tkzLabelPoint[left, fill=white](Y){\(1\)}
+					
+					\tkzDefPoint(\ri:1){B}
+					\tkzDrawSegment(O,B)
+					
+					\ifthenelse{\ri>9}{
+					\begin{scope}[opacity=2*.\ri]
+						\tkzGetVectxy(O,B){V}
+						\tkzDefPoint(\Vx,0){C}
+						\tkzDefPoint(\ri:\Vx){D}	
+						\tkzDrawArc[ultra thick,Verde](O,A)(B)
+						\tkzDrawSegment[ultra thick, Vermelho](B,C)
+						\tkzDrawArc[R,ultra thick,AzulEscuro](O,\Vx cm)(0,\ri)
+						\tkzDrawArc[R,thick,<-,>=stealth',shorten >=1mm,shorten <=1mm](O,1.25 cm)(0,\ri)
+						\tkzLabelAngle[pos=1.1,text=Verde](A,O,B){\(x\)}
+						\tkzMarkAngle[size=.25,mark=none,<-,>=stealth'](A,O,B)
+						\tkzLabelAngle[pos=.3](A,O,B){\(x\)}
+						%\tkzDrawPoints(B,C)
+						\tkzLabelSegment[rotate=-90,above,text=Vermelho](B,C){\(\sin(x)\)}
+						\tkzFindAngle(O,C,D)\tkzGetAngle{angOCD}
+						\tkzLabelSegment[rotate=\angOCD,anchor=north,text=AzulEscuro](C,D){\(x\cos(x)\)}
+					\end{scope}
+					}{}
+					
+				\end{scope}
+			
+				\begin{scope}[shift=(O2),scale=1.2]
+					\tkzInit[xmin=-.1,xmax=1,ymin=-.5, ymax=1]
+					\tkzDrawXY[noticks]
+					\tkzDefPoints{0/0/O, 1/0/A,0/1/Y}
+					\tkzDrawArc[R](O,1cm)(-80,150)
+					\tkzDefPoint(\ri:1){B}
+					\tkzDrawSegment(O,B)
+					\tkzDefPoint(\Vx,0){C}
+					
+					\begin{scope}[on background layer]
+						\draw[->, >=stealth'] ([yshift=-1.2mm]O) -- ([yshift=-1.2mm]A);
+						\tkzLabelSegment[below,fill=white](O,C){\(\cos(x)\)}
+					\end{scope}
+					
+					\tkzLabelPoint[left, fill=white](Y){\(1\)}
+					\draw[decoration=brace, decorate](C)--(O);
+					
+					\ifthenelse{\ri>9}{
+						\begin{scope}[opacity=2*.\ri]
+							\tkzGetVectxy(O,B){V}
+							\tkzDefPoint(\ri:\Vx){D}
+							\tkzDrawArc[](O,A)(B)
+							\tkzDrawSegment[black!70, add=0cm and .5mm](B,C)
+							\tkzDrawArc[R,black!50](O,\Vx cm)(0,\ri)
+							\tkzDrawArc[R,<-,>=stealth',shorten >=1mm,shorten <=1mm](O,1.25 cm)(0,\ri)
+							\tkzLabelAngle[pos=1.3, anchor=west](A,O,B){\(x\to 0\)}
+						\end{scope}
+					}{}
+				\end{scope}
+			
+				\pgfmathsetmacro{\cosAng}{cos(\ri)}
+				\node[draw, rounded corners=2mm, fill=AzulCinza!20,anchor=north] at ([xshift=1cm,yshift=-2.5cm]O2){
+					\(\begin{WithArrows}[format=cCcCcC,interline=2mm]
+						x\cos(x) & \leq &\sin(x)  & \leq & x &\Leftrightarrow\\
+						\dfrac{x\cos(x)}{x}&\leq &\dfrac{\sin(x)}{x}&\leq& \dfrac{x}{x}&\Leftrightarrow\\
+						\cos(x) &\leq& \dfrac{\sin(x)}{x}&\leq &1&\Leftrightarrow\\
+						\num{\cosAng}&\leq& \dfrac{\sin(x)}{x}&\leq &1&\Leftrightarrow
+					\end{WithArrows}\)
+				};
+		\end{tikzpicture}
+	}
+	\end{animateinline}
+\end{document}
