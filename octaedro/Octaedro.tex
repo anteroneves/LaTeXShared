@@ -1,0 +1,77 @@
+\documentclass[tikz, border=1cm]{standalone}
+
+\usepackage{tkz-euclide}
+\usepackage{tikz-3dplot}
+
+\definecolor{azul}{RGB}{59,89,152}
+
+
+\begin{document}
+	
+\tdplotsetmaincoords{75}{110}
+
+\begin{tikzpicture}[tdplot_main_coords,scale=2]
+	
+	\coordinate (O) at (0,0,0);
+	
+	\coordinate (O1) at ({sqrt(2)},2,{sqrt(2)});% Coordenadas do centro do octaedro
+	
+	\begin{scope}[shift=(O1),rotate around x=0, rotate around y=0, rotate around z=0]
+		
+		%Referencial pequeno
+		\draw[->, >=stealth', font=\tiny, azul] (0,0,0) -- (1,0,0) node[below]{\(x\)};
+		\draw[->, >=stealth', font=\tiny, azul] (0,0,0) -- (0,1,0) node[below]{\(y\)};
+		\draw[->, >=stealth', font=\tiny, azul] (0,0,0) -- (0,0,1) node[left]{\(z\)};;
+		%%%%%
+		
+		\coordinate (A) at ({sqrt(2)},0,0);
+		
+		\begin{scope}[canvas is xz plane at y=0]	
+			\foreach \i/\j in {90/C,180/D,270/F} {
+			\tkzDefPointBy[rotation=center O1 angle \i](A)\tkzGetPoint{\j}
+			}
+		\end{scope}	
+		
+		\begin{scope}[canvas is yz plane at x=0]
+			\foreach \i/\j in {-90/B,90/E} {
+				\tkzDefPointBy[rotation=center O1 angle \i](C)\tkzGetPoint{\j}
+			}
+		\end{scope}	
+
+	\end{scope}
+	
+	%Referencial
+	\coordinate (Y1) at (intersection of (0,0,0)--(0,4,0) and E--F);
+	\coordinate (Y2) at (intersection of (0,0,0)--(0,4,0) and B--F);
+	
+	\coordinate (Z1) at (intersection of (0,0,0)--(0,0,4) and E--F);
+	\coordinate (Z2) at (intersection of (0,0,0)--(0,0,4) and E--C);
+	
+	\draw[->, >=stealth'] (0,0,0) -- (4,0,0) node[below]{\(x\)};
+	\draw[->, >=stealth'] (0,0,0) -- (Y1) (Y2) -- (0,4,0) node[below]{\(y\)};
+	\draw[loosely dotted] (Y1)--(Y2);
+	\draw[->, >=stealth'] (0,0,0) -- (Z1) (Z2)--(0,0,3) node[left]{\(z\)};
+	\draw[loosely dotted] (Z1)--(Z2);
+	%%%%
+	
+	%Pontos, arestas e faces
+	\foreach \i/\j in {A/solid,D/dashed}{
+		\tkzFillPolygon[azul,opacity=.1](\i,B,C)
+		\tkzFillPolygon[azul,opacity=.1](\i,C,E)
+		\tkzFillPolygon[azul,opacity=.1](\i,E,F)
+		\tkzFillPolygon[azul,opacity=.1](\i,B,F)
+		\tkzDrawSegments[\j](\i,B \i,C \i,E \i,F)
+	}
+
+	\tkzDrawPolygon(B,C,E,F)
+	
+	\tkzLabelPoints[below right](A,D)
+	\tkzLabelPoints[right](B)
+	\tkzLabelPoints[above](C)
+	\tkzLabelPoints[left](E)
+	\tkzLabelPoints[below](F)
+	%%%%
+	
+\end{tikzpicture}
+
+\end{document}
