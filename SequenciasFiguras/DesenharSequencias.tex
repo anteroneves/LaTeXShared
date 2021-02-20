@@ -1,0 +1,41 @@
+\documentclass{standalone}
+
+
+\usepackage{tkz-euclide}
+\usepackage{xifthen}
+
+\begin{document}
+	
+	\begin{tikzpicture}[scale=.2]
+		
+	\def\Ntermos{5} % Controla o número de termos a apresentar
+	\foreach \k in {1,...,\Ntermos}{ % Vamos definir o que acontece para cada termo
+		\pgfmathtruncatemacro{\dist}{(5+\k)^2}; % define uma função para a distância deste o primeiro até ao termo \k.
+		\begin{scope}[xshift=\dist cm ] % Este xshift desloca a construção do termo \k de acordo com \dist definida na linha anterior (distância entre bolas iniciais de cada termo)
+			\def\raio{1.2} % define o raio do círculo
+			\def\Termo{\k} % define até que linha vamos desenhar (chamei termo porque o número de linhas é igual à ordem do termo)	
+			\foreach \j in {1,...,\Termo}{
+				\tkzDefPoint(120:{2*\j*\raio}){O\j} % define onde vai ficar o centro O da primeira bola de cada linha, dependendo da linha j e do raio. Dependendo do valor do ângulo podemos fazer muitas figuras diferentes.
+				\begin{scope}[shift=(O\j)] % o shift muda a posição do centro do referencial para o O\j definido anteriormente.
+					\foreach \i in {1,...,\j}{
+						\begin{scope}[xshift=2*\raio*\i cm] % vai avancando a origem do refencial para construir a linha
+							\tkzDefPoint(0,0){A\j\i} % define o centro do círculo, tenho A11 vai ser o nome de cada bola inicial, fiz assim para depois ter uma referência para colocar a legenda no termo automaticamente.
+							\tkzDrawCircle[R](A\j\i,\raio cm)
+							\ifthenelse{\i=1 \OR \i=\j}%testa se estamos na primeira ou na última bola
+							{ 
+								\shade[ball color=red] (A\j\i) circle [radius=\raio cm]; % faz isto se for a primeira ou última bola
+							}
+							{
+								\shade[ball color=blue] (A\j\i) circle [radius=\raio cm]; % faz isto se não for a primeira ou a última bola.
+							}
+						\end{scope}
+					};
+				\end{scope}
+			};
+		\end{scope}
+	\tkzLabelPoint[below=5mm](A11){\(\k\).º termo} % coloca a legenda no termo
+	};
+
+	\end{tikzpicture}
+
+\end{document}
