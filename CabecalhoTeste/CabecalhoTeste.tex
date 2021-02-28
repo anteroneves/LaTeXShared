@@ -1,0 +1,29 @@
+\documentclass{article}
+
+
+\usepackage{tikz}
+
+\tikzset{
+	StandardNode/.style={draw, minimum height=1cm,  anchor=north west,inner sep=0cm,outer sep=0cm,text=blue,font=\bfseries}
+}
+
+\begin{document}
+	\begin{tikzpicture}[overlay, remember picture]
+		\node[StandardNode, minimum width=2cm, yshift=-5mm,xshift=2.5mm] (Nome) at (current page.north west){Nome:};
+		\node[StandardNode, minimum width=9cm] (CampoNome) at (Nome.north east) {};
+		\node[StandardNode, minimum width=2cm] (Professor) at (CampoNome.north east) {Professor:};
+		\node[StandardNode, minimum width=3cm,fill=green!20] (CampoProfessor) at (Professor.north east) {};
+		\node[StandardNode, minimum width=2cm] (Turma) at (Nome.south west){Turma:};
+		\node[StandardNode, minimum width=2cm] (CampoTurma) at (Turma.north east) {};
+		\node[StandardNode, minimum width=2.5cm] (Num) at (CampoTurma.north east){N.º do aluno:};
+		\node[StandardNode, minimum width=2cm] (CampoNum) at (Num.north east) {};
+		\node[StandardNode, minimum width=2cm] (Mencao) at (CampoNum.north east){Menção:};
+		\node[StandardNode, minimum width=5.5cm,fill=green!20] (CampoMencao) at (Mencao.north east) {};
+		\node[StandardNode, minimum width=5cm, minimum height=2cm,fill=blue!10] (CampoEncEd) at (CampoProfessor.north east){};
+		\node[anchor=north, ,text=blue,font=\bfseries,text width=5cm, text centered] (EncEd) at (CampoEncEd.north){
+			Tomei conhecimento. 
+			
+			{\footnotesize(Encarregado de Educação)}
+		};
+	\end{tikzpicture}
+\end{document}
