@@ -1,0 +1,226 @@
+\documentclass{article}
+
+\usepackage{tkz-fct, tkz-euclide}
+\usepackage{xparse}
+\usepackage{xifthen}
+\usepackage{fouriernc}
+\usepackage{fancyvrb}
+
+\usepackage{multicol}
+
+\ExplSyntaxOn
+\DeclareExpandableDocumentCommand{\contarzeros}{m}
+{
+\clist_count:n { #1 }
+}
+
+\NewDocumentCommand{\elemLista}{m m}
+{
+\clist_item:Nn #1 { #2 }  % recolher e elemento #2 da lista que deve estar guardada com o nome inserido em #1
+}
+\ExplSyntaxOff
+
+
+\tikzset{
+	cor positivo/.style={color=green!30!black!60},
+	cor negativo/.style={color=red!30},
+	bola/.style={fill=white, fill opacity=.5,text opacity=1,shape=circle,draw,inner sep=.1mm,anchor=center,font=\footnotesize,text height=1.5mm},
+}
+
+
+\DeclareDocumentCommand{\parabola}{m m}{
+	
+	\def\Zeros#1 % Dar nome à lista dos zeros da função
+	
+	\ifthenelse{\contarzeros#1 = 0}
+		{
+			\ifthenelse{\equal{#2}{c}}
+			{
+				\tkzInit[xmin=-2,xmax=2,ymin=-1,ymax=2]
+				\tkzClip
+				\tkzFct[domain=-2:2,thick]{(x)**2}
+				\tkzFct[domain=-2:2,->,>=stealth]{-0.5}
+				\tkzDefPoint(2,-.5){x}
+				\tkzLabelPoints[below left](x)
+				\tkzDrawAreafg[cor positivo,domain=-2:2]
+				\node[bola] at (-1.6,1){\(+\)};
+				\node[bola] at (1.6,1){\(+\)};
+				\node[bola] at (0,-.25){\(+\)};
+			}
+			{
+				\ifthenelse{\equal{#2}{b}}
+				{
+					\tkzInit[xmin=-2,xmax=2,ymin=-2,ymax=1]
+					\tkzClip
+					\tkzFct[domain=-2:2,thick]{0-(x)**2}
+					\tkzFct[domain=-2:2,->,>=stealth]{0.5}
+					\tkzDefPoint(2,.5){x}
+					\tkzLabelPoints[above left](x)
+					\tkzDrawAreafg[between= b and a, cor negativo,domain=-2:2]
+					\node[bola] at (-1.6,-1){\(-\)};
+					\node[bola] at (1.6,-1){\(-\)};
+					\node[bola] at (0,.25){\(-\)};
+				}
+				{}
+			}
+		}
+		{
+			\ifthenelse{\contarzeros#1 = 1} %O que acontece quando a parábola tem um zero
+			{
+				
+				\ifthenelse{\equal{#2}{c}}
+				{
+					\tkzInit[xmin=-2,xmax=2,ymin=-.5,ymax=2]
+					\tkzClip
+					\tkzFct[domain=-2:2,thick]{(x)**2}
+					\tkzFct[domain=-2:2,->,>=stealth]{0}
+					\tkzDefPoint(2,0){x}
+					\tkzLabelPoints[below left](x)
+					\tkzDrawAreafg[cor positivo,domain=-2:2]
+					\tkzDefPoint(0,0){A}
+					\tkzDrawPoint[fill=white](A)
+					\tkzLabelPoint[below](A){\(\elemLista{\Zeros}{1}\)}
+					\node[bola] at (-1.6,1){\(+\)};
+					\node[bola] at (1.6,1){\(+\)};
+				}
+				{
+					
+					\ifthenelse{\equal{#2}{b}}
+					{
+						\tkzInit[xmin=-2,xmax=2,ymin=-2,ymax=.5]
+						\tkzClip
+						\tkzFct[domain=-2:2,thick]{0-(x)**2}
+						\tkzFct[domain=-2:2,->,>=stealth]{0}
+						\tkzDefPoint(2,0){x}
+						\tkzLabelPoints[above left](x)
+						\tkzDrawAreafg[between= b and a, cor negativo,domain=-2:2]
+						\tkzDefPoint(0,0){A}
+						\tkzDrawPoint[fill=white](A)
+						\tkzLabelPoint[above](A){\(\elemLista{\Zeros}{1}\)}
+						\node[bola] at (-1.6,-1){\(-\)};
+						\node[bola] at (1.6,-1){\(-\)};					}
+					{}
+				}	
+			}
+			{
+				\ifthenelse{\contarzeros#1=2}
+				{
+					\ifthenelse{\equal{#2}{c}}
+					{
+						\tkzInit[xmin=-2,xmax=2,ymin=-.1,ymax=2]
+						\tkzClip
+						\tkzFct[domain=-2:2,thick]{(x)**2}
+						\tkzFct[domain=-2:2,->,>=stealth]{1}
+						\tkzDrawAreafg[cor positivo,domain=-2:2]
+						\tkzDrawAreafg[between= b and a,cor negativo,domain=-2:2]
+						\tkzDefPoint(2,1){x}
+						\tkzLabelPoints[below left](x)
+						\tkzDefPoint(-1,1){A}
+						\tkzDrawPoint[fill=white](A)
+						\tkzLabelPoint[below](A){\(\elemLista{\Zeros}{1}\)}
+						\tkzDefPoint(1,1){B}
+						\tkzDrawPoint[fill=white](B)
+						\tkzLabelPoint[below](B){\(\elemLista{\Zeros}{2}\)}
+						\node[bola] at (-1.6,1.5){\(+\)};
+						\node[bola] at (1.6,1.5){\(+\)};
+						\node[bola] at (0,.5){\(-\)};
+					}
+					{
+						\ifthenelse{\equal{#2}{b}}
+						{
+							\tkzInit[xmin=-2,xmax=2,ymin=-2,ymax=.1]
+							\tkzClip
+							\tkzFct[domain=-2:2,thick]{0-(x)**2}
+							\tkzFct[domain=-2:2,->,>=stealth]{-1}
+							\tkzDefPoint(2,-1){x}
+							\tkzLabelPoints[above left](x)
+							\tkzDrawAreafg[cor positivo,domain=-2:2]
+							\tkzDrawAreafg[between= b and a, cor negativo,domain=-2:2]
+							\tkzDefPoint(-1,-1){A}
+							\tkzDrawPoint[fill=white](A)
+							\tkzLabelPoint[below](A){\(\elemLista{\Zeros}{1}\)}
+							\tkzDefPoint(1,-1){B}
+							\tkzDrawPoint[fill=white](B)
+							\tkzLabelPoint[below](B){\(\elemLista{\Zeros}{2}\)}
+							\node[bola] at (-1.6,-1.5){\(-\)};
+							\node[bola] at (1.6,-1.5){\(-\)};
+							\node[bola] at (0,-.5){\(+\)};
+						}
+						{}
+					}
+				}
+				{}
+			}
+		}
+}
+
+\begin{document}
+
+
+\begin{multicols}{2}
+\begin{Verbatim}[gobble=1,xleftmargin=5mm]
+	\begin{tikzpicture}
+		\parabola{{}}{c}
+	\end{tikzpicture}
+\end{Verbatim}
+
+\begin{tikzpicture}
+	\parabola{{}}{c}
+\end{tikzpicture}
+
+
+\begin{Verbatim}[gobble=1,xleftmargin=5mm]
+	\begin{tikzpicture}
+		\parabola{{}}{b}
+	\end{tikzpicture}
+\end{Verbatim}
+
+\begin{tikzpicture}
+	\parabola{{}}{b}
+\end{tikzpicture}
+
+
+\begin{Verbatim}[gobble=1,xleftmargin=5mm]
+	\begin{tikzpicture}
+		\parabola{{1}}{c}
+	\end{tikzpicture}
+\end{Verbatim}
+
+\begin{tikzpicture}
+	\parabola{{1}}{c}
+\end{tikzpicture}
+
+
+\begin{Verbatim}[gobble=1,xleftmargin=5mm]
+	\begin{tikzpicture}
+		\parabola{{1}}{b}
+	\end{tikzpicture}
+\end{Verbatim}
+
+\begin{tikzpicture}
+	\parabola{{1}}{b}
+\end{tikzpicture}
+
+
+\begin{Verbatim}[gobble=1,xleftmargin=5mm]
+	\begin{tikzpicture}
+		\parabola{{0,\pi}}{c}
+	\end{tikzpicture}
+\end{Verbatim}
+
+\begin{tikzpicture}
+	\parabola{{0,\pi}}{c}
+\end{tikzpicture}
+
+
+\begin{Verbatim}[gobble=1,xleftmargin=5mm]
+	\begin{tikzpicture}
+		\parabola{{-\sqrt{2},\ln{3}}}{b}
+	\end{tikzpicture}
+\end{Verbatim}
+
+\begin{tikzpicture}
+	\parabola{{-\sqrt{2},\ln{3}}}{b}
+\end{tikzpicture}
+\end{multicols}
+\end{document}
