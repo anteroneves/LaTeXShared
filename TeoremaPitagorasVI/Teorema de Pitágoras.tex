@@ -1,0 +1,110 @@
+\documentclass[12pt]{article}
+
+\usepackage{geometry}
+\usepackage{tkz-euclide}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{fouriernc}
+
+\def\facebookSquare{900pt}
+\def\margem{75pt}
+
+
+\geometry{
+	paperheight=\facebookSquare, 
+	paperwidth=\facebookSquare,
+	textwidth=750pt}
+
+\definecolor{facebook}{RGB}{59,89,152}
+\definecolor{youtube}{HTML}{90030c}
+
+\begin{document}
+	
+	\thispagestyle{empty}
+	
+	
+	
+	\begin{tikzpicture}[remember picture, overlay]
+		\fill[facebook!70] (current page.north west) rectangle (current page.south east);
+		\fill[white] ([xshift=\margem, yshift=-\margem]current page.north west) rectangle ([xshift=-\margem,yshift=\margem]current page.south east);
+		
+		\node[anchor=center] (figura) at (current page.center) {
+			\begin{tikzpicture}[scale=2]
+				
+				% Definição dos três vértices do triângulo rectângulo. Desenho do triângulo.
+				\tkzDefPoints{0/0/A, 4/0/B, 0/3/C}
+				\tkzDrawPolygon(A,B,C)
+				
+				% Definição dos três quadrados a partir dos lados do triângulo. Desenho dos quadrados.
+				
+				% Quadrado cateto 1
+				\tkzDefSquare(B,A)\tkzGetPoints{D}{E}
+				\tkzDrawPolygon(B,A,D,E)
+				
+				% Quadrado cateto 2
+				\tkzDefSquare(A,C)\tkzGetPoints{F}{G}
+				\tkzDrawPolygon(A,C,F,G)
+				
+				% Quadrado hipotenusa
+				\tkzDefSquare(C,B)\tkzGetPoints{H}{I}
+				\tkzDrawPolygon(C,B,H,I)
+				
+				% Definição de pontos para divisão do quadrado da hipotenusa.
+				
+				% Quadrado central (Q)
+				\tkzInterLL(E,B)(F,C)\tkzGetPoint{Q1}
+				\tkzDefPointBy[projection=onto B--E](H)\tkzGetPoint{Q2}
+				\tkzDefSquare(Q1,Q2) \tkzGetPoints{Q3}{Q4}
+				
+				% Restante divisão
+				\tkzInterLL(G,C)(I,Q3)\tkzGetPoint{I'}
+				\tkzDefLine[parallel=through H](G,C)\tkzGetPoint{H'}
+				\tkzInterLL(B,E)(H,H')\tkzGetPoint{B'}
+				
+				
+				% Definição de pontos para divisão do cateto 1
+				
+				\tkzInterLL(B,H)(D,E)\tkzGetPoint{D'}
+				\tkzDefSquare(D,D')\tkzGetPoints{D''}{D'''}
+				
+				
+				% Desenho dos diferentes polígonos
+				
+				% Desenho dos polígonos do quadrado da hipotenusa
+				\tkzDrawPolygon[fill=facebook, fill opacity=.6](Q1,Q2,Q3,Q4)
+				\tkzDrawPolygon[fill=facebook, fill opacity=.3](Q1,C,B)
+				\tkzDrawPolygon[fill=facebook, fill opacity=.3](I,Q3,H)
+				\tkzDrawPolygon[fill=facebook, fill opacity=.1](B,B',H)
+				\tkzDrawPolygon[fill=facebook, fill opacity=.1](I,I',C)
+				\tkzDrawPolygon[fill=youtube, fill opacity=.2](Q4,C,I')
+				\tkzDrawPolygon[fill=youtube, fill opacity=.2](Q2,H,B')
+				
+				% Desenho dos polígonos do cateto 1
+				\tkzDrawPolygon[fill=facebook, fill opacity=.6](D,D',D'',D''')
+				\tkzDrawPolygon[fill=facebook, fill opacity=.3](A,B,D''')
+				\tkzDrawPolygon[fill=facebook, fill opacity=.3](B,E,D')
+				\tkzDrawPolygon[fill=facebook, fill opacity=.1,rounded corners=.1pt](B,D',D'')
+				\tkzDrawPolygon[fill=facebook, fill opacity=.1,rounded corners=.1pt](B,D'',D''')
+				
+				%Desenho dos polígonos do cateto 2
+				\tkzDrawPolygon[fill=youtube, fill opacity=.2](A,C,G)
+				\tkzDrawPolygon[fill=youtube, fill opacity=.2](C,F,G)
+				
+				%\tkzLabelPoints(A,...,I)
+			\end{tikzpicture}
+		};
+	
+		\node[anchor=north, scale=2.5] (titulo) at ([yshift=-\margem]current page.north){Teorema de Pitágoras};
+		
+		\node[anchor=south west,scale=1, text width=6cm] (info) at ([yshift=\margem, xshift=\margem]current page.south west) {
+			Demonstração por: Liu Hui
+			
+			Fonte: Proofs without words II
+			};
+		
+;	\end{tikzpicture}
+	
+	
+	
+
+\end{document}
