@@ -1,0 +1,111 @@
+
+\documentclass{article}
+
+\usepackage{fouriernc}
+\usepackage{geometry}
+\usepackage{tkz-euclide,tikz-3dplot}
+\usepackage{animate}
+\usepackage{tikz-layers}
+\usetikzlibrary{arrows,3d,calc,tikzmark,matrix,intersections}
+
+
+\geometry{
+	a4paper,
+	top=1cm, 
+	bottom=2cm, 
+	right = 1cm,
+	left=1.5cm, 
+	headheight=1cm
+}
+
+\definecolor{UAz}{RGB}{0, 87, 183}
+\definecolor{UAm}{RGB}{255, 215, 0}
+
+
+\begin{document}
+
+	\centering
+	
+	\begin{animateinline}[poster=first,controls={play, stop, step}]{15}
+		
+		\multiframe{26}{rt=0+0.05}{
+			
+			\tdplotsetmaincoords{80}{100}
+			\begin{tikzpicture}[tdplot_main_coords, line cap=round, line join=round,>=stealth']	
+				
+				\def\lx{2.5}
+				
+				\node[](D1){
+					\begin{tikzpicture}
+						\foreach \n in {0,0.4,0.8,...,1.6}{
+							\foreach \i in {A,B}{
+								\begin{scope}[canvas is yz plane at x=\n]
+									\tkzDefPoints{0/0/\i_1,\lx/0/\i_2,\lx/1/\i_3,{\lx/2}/1/\i_4,{\lx/2}/2/\i_5,\lx/2/\i_6,\lx/5/\i_7,0/5/\i_8, 0/4/\i_9,{\lx/2}/4/\i_10,{\lx/2}/3/\i_11,0/3/\i_12}
+									\tkzDrawPolygon[rounded corners=1pt, line join=round,fill=UAz!90,draw=black](\i_1,\i_2,\i_...,\i_12)
+								\end{scope}
+							}
+						}
+					\end{tikzpicture}
+				};
+				
+				\node[anchor=west](D2) at (D1.east){
+					\begin{tikzpicture}
+						\foreach \n in {0,0.4,0.8,...,1.6}{
+							\foreach \i in {A,B}{
+								\begin{scope}[canvas is yz plane at x=\n]
+									\tkzDefPoints{0/0/\i_1,\lx/0/\i_2,\lx/5/\i_3,0/5/\i_4,1/4/\i_5,1/1/\i_6,1.5/1/\i_7,1.5/4/\i_8}
+									\tkzFillPolygon[rounded corners=1pt,line join=round,UAz!90](\i_5,\i_8,\i_7,\i_6,\i_1,\i_2,\i_3,\i_4,\i_5,\i_6,\i_1,\i_4)
+									\tkzDrawPolygon[draw=black](\i_5,\i_8,\i_7,\i_6)
+									\tkzDrawPolygon[rounded corners=1pt,draw=black](\i_1,\i_2,\i_3,\i_4)
+								\end{scope}
+							}
+						}
+					\end{tikzpicture}
+				};
+				
+				\node[anchor=north west](D3) at (D1.south west){
+					\begin{tikzpicture}
+						\foreach \n in {0,0.4,0.8,...,1.6}{
+							\foreach \i in {A,B}{
+								\begin{scope}[canvas is yz plane at x=\n]
+									\tkzDefPoints{0/0/\i_1,\lx/0/\i_2,\lx/1/\i_3,{\lx/2}/1/\i_4,{\lx/2}/2/\i_5,\lx/2/\i_6,\lx/5/\i_7,0/5/\i_8, 0/4/\i_9,{\lx/2}/4/\i_10,{\lx/2}/3/\i_11,0/3/\i_12}
+									\tkzDrawPolygon[rounded corners=1pt,line join=round,fill=UAm!90,draw=black](\i_1,\i_2,\i_...,\i_12)
+								\end{scope}
+							}
+						}
+					\end{tikzpicture}
+				};
+				
+				%\def\rt{1.25}
+				\node[anchor=west](D4) at (D3.east){
+					\begin{tikzpicture}
+						\foreach \n in {0,0.4,0.8,...,1.6}{
+							
+							\foreach \i in {A,B}{
+								\begin{scope}[canvas is yz plane at x=\n]
+									
+									\tkzDefPoints{0/0/\i_1,\lx/0/\i_2,\lx/1/\i_3,{\lx/2+\rt}/1/\i_4,{\lx/2+\rt}/2/\i_5,\lx/2/\i_6,\lx/5/\i_7,0/5/\i_8, 0/4/\i_9,{\lx/2}/4/\i_10,{\lx/2}/3/\i_11,0/3/\i_12,0/2/\i_13,\rt/2/\i_14,\rt/1/\i_15,0/1/\i_16}
+									\tkzDrawPolygon[rounded corners=1pt,line join=round,fill=UAm!90,draw=black](\i_1,\i_2,\i_...,\i_16)
+								\end{scope}
+								
+							}
+							
+						}
+					\end{tikzpicture}
+				};
+				
+				
+				
+				\node[anchor=south west,opacity=\rt*1.1,minimum height=2em](T1) at (D1.north west){
+					\texttt{Bom Ano Novo}
+				};
+				
+				\node[anchor=north west,opacity=\rt*0.75,minimum height=2em](T2) at (D4.south west){
+					\texttt{e que traga paz.}
+				};
+			\end{tikzpicture}
+		}
+	\end{animateinline}
+	
+	
+\end{document}
